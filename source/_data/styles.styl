@@ -1,0 +1,153 @@
+/************************* 全站背景 ************************/
+
+// 隐藏顶部线条 
+
+/*
+.headband {
+  display: none;
+}
+*/
+
+// 顶部边距 
+
+.header,
+.main-inner {
+  margin-top: 10px;
+
+  +mobile() {
+    margin-top: 0;
+  }
+}
+
+
+/************************** 侧边栏 ***************************/
+
+// 侧边栏上方圆角
+
+.site-brand-container {
+  border-radius: 18px 18px 0 0;
+
+  +mobile() {
+    border-radius: 0 0 0 0;
+  }
+}
+
+
+// 添加背景图片
+
+body {
+      background: url(/uploads/background.jpg);   // 自己喜欢的图片地址
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: 100% 100%;
+      @media (prefers-color-scheme: dark) {
+        background-image: none;     // 夜间模式，不显示背景图片
+      }
+}
+
+
+// 博客页面透明度设置范围 0-1，（0代表完全透明，1代表不透明）
+// 文章内容的透明度设置
+
+.main-inner {
+  opacity: 0.9;
+}
+
+// 侧边框的透明度设置
+
+.sidebar {
+  background-color: transparent;
+  opacity: 0.9;
+}
+
+// 菜单栏的透明度设置
+
+.header-inner {
+  background: rgba(255,255,255,0.9);   // 白色
+  @media (prefers-color-scheme: dark) {
+    background: rgba(51,51,51,0.9);    // 灰色
+  }
+}
+
+// 搜索框（local-search）的透明度设置
+
+.popup {
+  opacity: 0.9;
+}
+
+// 粒子时钟样式
+
+.site-overview {
+  text-align: center;
+}
+
+canvas#canvas {
+  margin-top: 20px;
+}
+
+// 站点标题背景图片 sidebar_header
+
+.site-brand-container {
+ background: url(/uploads/siderbar_header.jpg); 
+//  background-repeat: no-repeat;    // 不重复
+//  background-attachment: fixed;    
+ background-size: cover;             // 覆盖
+ background-position: 70% 20%;
+}
+
+
+/************************* 字体设置 ************************/
+
+// 文章主体字体设置
+
+.post-body {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 1.325em;
+  color: black;
+  }
+
+.posts-expand .post-title-link {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: black;
+  }
+
+.posts-expand .post-title {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: black;
+  font-size: 2em;
+  }
+
+.menu .menu-item a {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: black;
+  font-size: 1em;
+  }
+
+.site-description {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  // color: black;
+  font-size: 0.9em;
+  }
+
+.post-copyright ul {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: black;
+  font-size: 1.15em;
+  }
+
+.sidebar-inner {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: black;
+  }
+
+.search-popup .search-result-container {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  // color: black;
+  font-size: 1.2em;
+  }
+
+.search-popup .search-input-container {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+

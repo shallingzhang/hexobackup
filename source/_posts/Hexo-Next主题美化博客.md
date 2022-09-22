@@ -541,7 +541,7 @@ custom_file_path:
   #bodyEnd: source/_data/body-end.njk
   variable: source/_data/variables.styl  # 取消该行的注释
   #mixin: source/_data/mixins.styl
-  style: source/_data/styles.     # 取消该行的注释
+  style: source/_data/styles.styl     # 取消该行的注释
 ```
 
 
@@ -703,6 +703,68 @@ font:
     external: true
     family:
 ```
+
+配置 source/_data/ styles.styl 文件，自定义字体：
+
+```
+/************************* 字体设置 ************************/
+.post-body {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 1.325em;
+  color: black;
+  }
+
+.posts-expand .post-title-link {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: black;
+  }
+
+.posts-expand .post-title {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: black;
+  font-size: 2em;
+  }
+
+.menu .menu-item a {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: black;
+  font-size: 1em;
+  }
+
+.site-description {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  // color: black;
+  font-size: 0.9em;
+  }
+
+.post-copyright ul {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: black;
+  font-size: 1.15em;
+  }
+
+.sidebar-inner {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+// color: black;
+  p,span,a { color: #666; }
+ }
+
+.search-popup .search-result-container {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 1.2em;
+  }
+
+.search-popup .search-input-container {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+
+.footer-inner {
+  font-family: Times New Roman, cursive, Trebuchet MS, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: #666;
+  }
+```
+
+
 
 ### 鼠标
 
@@ -1141,7 +1203,190 @@ custom_file_path:
   bodyEnd: source/_data/body-end.njk   # 取消该行的注释
   #variable: source/_data/variables.styl  
   #mixin: source/_data/mixins.styl
-  #style: source/_data/styles.     
+  #style: source/_data/styles.styl     
+```
+
+雪花样式二：snow2.js ,引用方法和snow.js 一致
+
+```
+/*样式二：无齿轮雪花*/
+/* 控制下雪 */
+function snowFall(snow) {
+    /* 可配置属性 */
+    snow = snow || {};
+    this.maxFlake = snow.maxFlake || 200; /* 最多片数 */
+    this.flakeSize = snow.flakeSize || 10; /* 雪花形状 */
+    this.fallSpeed = snow.fallSpeed || 1; /* 坠落速度 */
+}
+/* 兼容写法 */
+requestAnimationFrame = window.requestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    function (callback) {
+        setTimeout(callback, 1000 / 60);
+    };
+
+cancelAnimationFrame = window.cancelAnimationFrame ||
+    window.mozCancelAnimationFrame ||
+    window.webkitCancelAnimationFrame ||
+    window.msCancelAnimationFrame ||
+    window.oCancelAnimationFrame;
+/* 开始下雪 */
+snowFall.prototype.start = function () {
+    /* 创建画布 */
+    snowCanvas.apply(this);
+    /* 创建雪花形状 */
+    createFlakes.apply(this);
+    /* 画雪 */
+    drawSnow.apply(this)
+}
+/* 创建画布 */
+function snowCanvas() {
+    /* 添加Dom结点 */
+    var snowcanvas = document.createElement("canvas");
+    snowcanvas.id = "snowfall";
+//    snowcanvas.width = window.innerWidth;
+//    snowcanvas.height = document.body.clientHeight;
+    snowcanvas.width = $(document).width();
+    snowcanvas.height = $(document).height();
+    snowcanvas.setAttribute("style", "position:absolute; top: 0; left: 0; z-index: 1; pointer-events: none;");
+    document.getElementsByTagName("body")[0].appendChild(snowcanvas);
+    this.canvas = snowcanvas;
+    this.ctx = snowcanvas.getContext("2d");
+    /* 窗口大小改变的处理 */
+    window.onresize = function () {
+//      snowcanvas.width = window.innerWidth;    
+        snowcanvas.width = $(document).width();
+        snowcanvas.height = $(document).height();
+     /* snowcanvas.height = window.innerHeight */
+    }
+}
+/* 雪运动对象 */
+function flakeMove(canvasWidth, canvasHeight, flakeSize, fallSpeed) {
+    this.x = Math.floor(Math.random() * canvasWidth); /* x坐标 */
+    this.y = Math.floor(Math.random() * canvasHeight); /* y坐标 */
+    this.size = Math.random() * flakeSize + 2; /* 形状 */
+    this.maxSize = flakeSize; /* 最大形状 */
+    this.speed = Math.random() * 1 + fallSpeed; /* 坠落速度 */
+    this.fallSpeed = fallSpeed; /* 坠落速度 */
+    this.velY = this.speed; /* Y方向速度 */
+    this.velX = 0; /* X方向速度 */
+    this.stepSize = Math.random() / 30; /* 步长 */
+    this.step = 0 /* 步数 */
+}
+flakeMove.prototype.update = function () {
+    var x = this.x,
+        y = this.y;
+    /* 左右摆动(余弦) */
+    this.velX *= 0.98;
+    if (this.velY <= this.speed) {
+        this.velY = this.speed
+    }
+    this.velX += Math.cos(this.step += .05) * this.stepSize;
+
+    this.y += this.velY;
+    this.x += this.velX;
+    /* 飞出边界的处理 */
+    if (this.x >= canvas.width || this.x <= 0 || this.y >= canvas.height || this.y <= 0) {
+        this.reset(canvas.width, canvas.height)
+    }
+};
+/* 飞出边界-放置最顶端继续坠落 */
+flakeMove.prototype.reset = function (width, height) {
+    this.x = Math.floor(Math.random() * width);
+    this.y = 0;
+    this.size = Math.random() * this.maxSize + 2;
+    this.speed = Math.random() * 1 + this.fallSpeed;
+    this.velY = this.speed;
+    this.velX = 0;
+};
+// 渲染雪花-随机形状（此处可修改雪花颜色！！！）
+flakeMove.prototype.render = function (ctx) {
+    var snowFlake = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+    snowFlake.addColorStop(0, "rgba(255, 255, 255, 0.9)"); /* 此处是雪花颜色，默认是白色 */
+    snowFlake.addColorStop(.5, "rgba(255, 255, 255, 0.5)"); /* 若要改为其他颜色，请自行查 */
+    snowFlake.addColorStop(1, "rgba(255, 255, 255, 0)"); /* 找16进制的RGB 颜色代码。 */
+    ctx.save();
+    ctx.fillStyle = snowFlake;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+};
+/* 创建雪花-定义形状 */
+function createFlakes() {
+    var maxFlake = this.maxFlake,
+        flakes = this.flakes = [],
+        canvas = this.canvas;
+    for (var i = 0; i < maxFlake; i++) {
+        flakes.push(new flakeMove(canvas.width, canvas.height, this.flakeSize, this.fallSpeed))
+    }
+}
+/* 画雪 */
+function drawSnow() {
+    var maxFlake = this.maxFlake,
+        flakes = this.flakes;
+    ctx = this.ctx, canvas = this.canvas, that = this;
+    /* 清空雪花 */
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var e = 0; e < maxFlake; e++) {
+        flakes[e].update();
+        flakes[e].render(ctx);
+    }
+    /*  一帧一帧的画 */
+    this.loop = requestAnimationFrame(function () {
+        drawSnow.apply(that);
+    });
+}
+/* 调用及控制方法 */
+var snow = new snowFall({
+    maxFlake: 60
+});
+snow.start();
+```
+
+### 站点运行时间
+
+新建页脚配置文件 source/_data/footer.njk，添加如下代码：
+
+```
+<!-- 站点运行时间 -->
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/19/2022 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+```
+
+修改主题配置文件 _config.next.yml , 启用自定义页脚样式文件。
+
+```
+custom_file_path:
+  #head: source/_data/head.njk
+  #header: source/_data/header.njk
+  #sidebar: source/_data/sidebar.njk   
+  #postMeta: source/_data/post-meta.njk
+  #postBodyEnd: source/_data/post-body-end.njk
+  footer: source/_data/footer.njk     # 取消该行的注释
+  #bodyEnd: source/_data/body-end.njk   
+  #variable: source/_data/variables.styl  
+  #mixin: source/_data/mixins.styl
+  #style: source/_data/styles.styl    
 ```
 
 

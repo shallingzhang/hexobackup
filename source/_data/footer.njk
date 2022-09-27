@@ -17,4 +17,7 @@
 setInterval("createtime()",250);
 </script>
 
+{%- if theme.busuanzi_count.enable %}
+  <script{{ pjax }} async src="/js/busuanzi.pure.mini.js"></script>
+{%- endif %}
 
